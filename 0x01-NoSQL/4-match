@@ -1,0 +1,3 @@
+// List documents of a type
+db.school.findOne({'name':'Holberton school'})
+
