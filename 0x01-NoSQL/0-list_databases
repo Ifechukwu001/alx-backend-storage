@@ -1,1 +1,7 @@
-show dbs;
+#!/usr/bin/env python3
+"""Shows all databases
+
+"""
+
+show dbs
+
