@@ -36,7 +36,7 @@ class Cache:
         self._redis.flushdb()
 
     @count_calls
-    def store(self, data: typing.Union[str, bytes, int, float] = None) -> str:
+    def store(self, data: typing.Union[str, bytes, int, float]) -> str:
         """Stores input data in redis
 
         Args:
@@ -49,7 +49,7 @@ class Cache:
         self._redis.set(key, data)
         return key
 
-    def get(self, key: str, fn: typing.Callable) -> typing.Union[
+    def get(self, key: str, fn: typing.Callable = None) -> typing.Union[
                                                                 str,
                                                                 bytes,
                                                                 int,
