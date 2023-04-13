@@ -128,6 +128,6 @@ def replay(method: typing.Callable) -> None:
     outputs = redis_s.lrange("{}:outputs".format(method.__qualname__), 0, -1)
     data = zip(inputs, outputs)
 
-    print("{} was called {} times:".format(key_head, len(data)))
+    print("{} was called {} times:".format(key_head, len(inputs)))
     for inp, out in data:
         print("{}(*{}) -> {}".format(key_head, inp, out))
