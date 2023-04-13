@@ -16,4 +16,4 @@ def get_page(url: str) -> str:
         page = requests.get(url)
         return page.text
 
-    return wrapper
+    return wrapper()
