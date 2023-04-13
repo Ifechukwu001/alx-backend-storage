@@ -36,7 +36,7 @@ class Cache:
         self._redis.flushdb()
 
     @count_calls
-    def store(self, data: typing.Union[str, bytes, int, float]) -> str:
+    def store(self, data: typing.Union[str, bytes, int, float] = None) -> str:
         """Stores input data in redis
 
         Args:
