@@ -15,13 +15,36 @@ def count_calls(method: typing.Callable) -> typing.Callable:
         method (typing.Callable): Method to be counted.
 
     Returns:
-        typing.Callable: A returned callable.
+        typing.Callable: Inner function.
     """
     @functools.wraps(method)
     def wrapper(*args, **kwargs):
         self = args[0]
         self._redis.incr(method.__qualname__)
         return method(*args, **kwargs)
+
+    return wrapper
+
+
+def call_history(method: typing.Callable) -> typing.Callable:
+    """Saves the input and output data.
+
+    Args:
+        method (typing.Callable): Method call to save.
+
+    Returns:
+        typing.Callable: Inner function.
+    """
+    @functools.wraps(method)
+    def wrapper(*args, **kwargs):
+        self = args[0]
+        self._redis.rpush(
+                            "{}:inputs".format(method.__qualname__),
+                            str(args[1:])
+                            )
+        key: str = method(*args, **kwargs)
+        self._redis.rpush("{}:outputs".format(method.__qualname__), key)
+        return key
 
     return wrapper
 
