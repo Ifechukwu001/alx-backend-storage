@@ -5,6 +5,25 @@
 import redis
 import typing
 import uuid
+import functools
+
+
+def count_calls(method: typing.Callable) -> typing.Callable:
+    """Counts times a method is called
+
+    Args:
+        method (typing.Callable): Method to be counted.
+
+    Returns:
+        typing.Callable: A returned callable.
+    """
+    @functools.wraps(method)
+    def wrapper(*args, **kwargs):
+        self = args[0]
+        self._redis.incr(method.__qualname__)
+        return method(*args, **kwargs)
+
+    return wrapper
 
 
 class Cache:
@@ -16,6 +35,7 @@ class Cache:
         self._redis: redis.Redis = redis.Redis()
         self._redis.flushdb()
 
+    @count_calls
     def store(self, data: typing.Union[str, bytes, int, float]) -> str:
         """Stores input data in redis
 
