@@ -114,3 +114,20 @@ class Cache:
             int: Integer data.
         """
         return self.get(key, int)
+
+
+def replay(method: typing.Callable) -> None:
+    """Displays the history of calls to a method
+
+    Args:
+        method (typing.Callable): Method to check history.
+    """
+    key_head = method.__qualname__
+    redis_s = redis.Redis()
+    inputs = redis_s.lrange("{}:inputs".format(method.__qualname__), 0, -1)
+    outputs = redis_s.lrange("{}:outputs".format(method.__qualname__), 0, -1)
+    data = zip(inputs, outputs)
+
+    print("{} was called {} times:".format(key_head, len(data)))
+    for inp, out in data:
+        print("{}(*{}) -> {}".format(key_head, inp, out))
