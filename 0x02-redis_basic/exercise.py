@@ -133,4 +133,4 @@ def replay(method: typing.Callable) -> None:
         print("{}(*{}) -> {}".format(
                                         key_head,
                                         inp.decode("utf-8"),
-                                        out.decode("utf-8)))
+                                        out.decode("utf-8")))
