@@ -130,4 +130,7 @@ def replay(method: typing.Callable) -> None:
 
     print("{} was called {} times:".format(key_head, len(inputs)))
     for inp, out in data:
-        print("{}(*{}) -> {}".format(key_head, inp, out))
+        print("{}(*{}) -> {}".format(
+                                        key_head,
+                                        inp.decode("utf-8"),
+                                        out.decode("utf-8)))
