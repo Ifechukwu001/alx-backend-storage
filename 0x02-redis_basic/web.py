@@ -9,7 +9,6 @@ import typing
 
 
 redie = redis.Redis()
-count = 0
 
 
 def cache(function: typing.Callable) -> typing.Callable:
@@ -22,11 +21,9 @@ def cache(function: typing.Callable) -> typing.Callable:
     @functools.wraps(function)
     def wrapper(*args, **kwargs):
         url = args[0]
-        redie.set("cached:{}".format(url))
-        response = function(*args, **kwargs)
         redie.incr("count:{}".format(url))
-        redie.setex("cached:{}".format(url), 10, redie.get("cached:{}".format(url)))
-        return response
+        redie.expire("count:{}".format(url), 10)
+        return function(*args, **kwargs)
 
     return wrapper
 
