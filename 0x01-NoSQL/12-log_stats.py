@@ -6,7 +6,7 @@ Counts the documents that are in the database
 import pymongo
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     client = pymongo.MongoClient()
     db = client.logs
 
