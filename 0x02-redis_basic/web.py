@@ -22,7 +22,7 @@ def cache(function: typing.Callable) -> typing.Callable:
     def wrapper(*args, **kwargs):
         url = args[0]
         redie.incr("count:{}".format(url))
-        redie.expire("count:{}".format(url), 10)
+        # redie.expire("count:{}".format(url), 10)
         return function(*args, **kwargs)
 
     return wrapper
