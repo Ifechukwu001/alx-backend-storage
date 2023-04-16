@@ -22,6 +22,7 @@ def cache(function: typing.Callable) -> typing.Callable:
     def wrapper(*args, **kwargs):
         url = args[0]
         with redie.pipeline as pipe:
+            pipe.watch("count:{}".format(url))
             pipe.multi()
             pipe.incr("count:{}".format(url))
             pipe.expire("count:{}".format(url), 10)
