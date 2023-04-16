@@ -4,6 +4,7 @@
 """
 import redis
 import requests
+import functools
 import typing
 
 
@@ -17,6 +18,7 @@ def cache(function: typing.Callable) -> typing.Callable:
         function: request function to cache.
 
     """
+    @functools.wrap(function)
     def wrapper(*args, **kwargs):
         url = args[0]
         redie.incr("count:{}".format(url))
