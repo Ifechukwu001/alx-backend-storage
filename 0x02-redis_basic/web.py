@@ -18,7 +18,7 @@ def cache(function: typing.Callable) -> typing.Callable:
         function: request function to cache.
 
     """
-    @functools.wrap(function)
+    @functools.wraps(function)
     def wrapper(*args, **kwargs):
         url = args[0]
         redie.incr("count:{}".format(url))
