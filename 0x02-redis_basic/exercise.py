@@ -59,7 +59,7 @@ class Cache:
         """Initialize the Cache instance.
 
         """
-        self._redis: redis.Redis = redis.Redis()
+        self._redis = redis.Redis()
         self._redis.flushdb()
 
     @call_history
