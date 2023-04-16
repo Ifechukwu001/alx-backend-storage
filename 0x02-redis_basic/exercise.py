@@ -50,6 +50,9 @@ def call_history(method: typing.Callable) -> typing.Callable:
 
 
 class Cache:
+    """Cache Class
+
+    """
 
     def __init__(self) -> None:
         """Initialize the Cache instance.
