@@ -18,9 +18,9 @@ def count_calls(method: typing.Callable) -> typing.Callable:
         typing.Callable: Inner function.
     """
     @functools.wraps(method)
+    key = method.__qualname__
     def wrapper(*args, **kwargs):
         self = args[0]
-        key = method.__qualname__
         self._redis.incr(key)
         return method(*args, **kwargs)
 
