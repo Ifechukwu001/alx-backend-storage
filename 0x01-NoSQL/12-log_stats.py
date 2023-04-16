@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Display stats on Nginx logs on MongoDB.
 
+Counts the documents that are in the database
 """
 import pymongo
 
